@@ -5,7 +5,7 @@ date: 2013-01-28 22:00
 comments: false
 categories: [kubuntu]
 keywords: kubuntu japanese ibus
-published: false
+published: true
 ---
 
 Historically setting up Japanese input on Linux has been a trial-and-error 
