@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[RJ's Notes]]></title>
+  <link href="http://rurounijones.github.com/atom.xml" rel="self"/>
+  <link href="http://rurounijones.github.com/"/>
+  <updated>2013-01-28T22:16:57+09:00</updated>
+  <id>http://rurounijones.github.com/</id>
+  <author>
+    <name><![CDATA[RurouniJones]]></name>
+    <email><![CDATA[jeff@jones.be]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>
