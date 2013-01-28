@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[RJ's Notes]]></title>
-  <link href="http://rurounijones.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: kubuntu | RJ's Notes]]></title>
+  <link href="http://rurounijones.github.com/blog/categories/kubuntu/atom.xml" rel="self"/>
   <link href="http://rurounijones.github.com/"/>
   <updated>2013-01-28T22:33:12+09:00</updated>
   <id>http://rurounijones.github.com/</id>
@@ -47,14 +47,14 @@ Again feel free to give it a go and report back, but no guarantees.</p>
 <p>The reason for 3. is because, historically, attempting ot get Japanese input
 working with one method would intefere with other attempts using different
 methods. If you have already tried to setup Japanese input on your install then
-by all means try the below method, but if it doesn&#8217;t work I am afraid that I
+by all means try the below method, but if it doesn't work I am afraid that I
 cannot help you. In this case the best (albeit annoying) option is to reinstall.</p>
 
 <p>Right, with these caveats out of the way lets proceed.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install ibus-mozc gnome-icon-theme</span></code></pre></td></tr></table></div></figure>
-
+<p><code>
+sudo apt-get install ibus-mozc gnome-icon-theme
+</code></p>
 
 <p>Run this command from the konsole. It will install the ibus-mozc software,
 this has worked for me without issues. I used to use some different software but
@@ -67,49 +67,49 @@ missing dependency it is not installed so we need to specify it here.</p>
 restart, if prompted then please do so.</p>
 
 <p>After rebooting go go to your system-settings and choose the locale option
-(It is at the top under the &#8220;Common Appearance and Behavior&#8221; section).</p>
+(It is at the top under the "Common Appearance and Behavior" section).</p>
 
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-system-settings.png"></p>
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-system-settings.png"></p>
 
-<p>In the left-hand list select &#8220;System Languages&#8221; and then in the right hand
-window choose the &#8220;Set System Language&#8221; option.</p>
+<p>In the left-hand list select "System Languages" and then in the right hand
+window choose the "Set System Language" option.</p>
 
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-locale.png"></p>
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-locale.png"></p>
 
-<p>In my case I choose &#8220;English (United Kingdom)&#8221; (Rule Britannia!) and then in
-the bottom right of the window set the &#8220;Keyboard input method&#8221; to &#8220;ibus&#8221;</p>
+<p>In my case I choose "English (United Kingdom)" (Rule Britannia!) and then in
+the bottom right of the window set the "Keyboard input method" to "ibus"</p>
 
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-set-system-language.png"></p>
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-set-system-language.png"></p>
 
 <p>Clicking apply will require you to enter your root password.</p>
 
 <p>Now we need to start ibus. One option is to reboot but the quicker way is to
-bring up the app launcher by pressing ALT+F2 then typing in &#8220;ibus&#8221;. Doing so
-will bring up the &#8220;IBus Input Method Framework&#8221; option, please click this.</p>
+bring up the app launcher by pressing ALT+F2 then typing in "ibus". Doing so
+will bring up the "IBus Input Method Framework" option, please click this.</p>
 
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-launcher-ibus.png"></p>
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-launcher-ibus.png"></p>
 
 <p>Clicking the above will result in a little keyboard icon coming into life in
 your taskbar bottom right of the screen.</p>
 
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-taskbar-ibus.png"></p>
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-taskbar-ibus.png"></p>
 
-<p>Right click on this icon and select &#8220;Preferences&#8221;. On the window that appears
-select the &#8220;Input Method&#8221; tab.</p>
+<p>Right click on this icon and select "Preferences". On the window that appears
+select the "Input Method" tab.</p>
 
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences.png"></p>
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences.png"></p>
 
-<p>Check the &#8220;Customize active input methods&#8221; checkbox. Click the &#8220;Select an input
-method&#8221;, click the little arrow next to the greyed out &#8220;Japanese&#8221; text then
-click on the very orange icon with the &#8220;Mozc&#8221; text. Once that is done click
-&#8220;Add&#8221;.</p>
+<p>Check the "Customize active input methods" checkbox. Click the "Select an input
+method", click the little arrow next to the greyed out "Japanese" text then
+click on the very orange icon with the "Mozc" text. Once that is done click
+"Add".</p>
 
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences-japanese-selected.png"></p>
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences-japanese-selected.png"></p>
 
-<p>The orange icon with &#8220;Japanese - Mozc&#8221; should appear in the input method
+<p>The orange icon with "Japanese - Mozc" should appear in the input method
 list. At this point you can close the window.</p>
 
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences-japanese-added.png"></p>
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences-japanese-added.png"></p>
 
 <p>You should now be able to input Japanese! Open a text editor like Kate or a
 browser. Select an area where you can enter text then use CTRL+Space, the

@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Setting up Japanese input on Kubuntu 12.04 - RJ's Notes</title>
+  <meta name="author" content="RurouniJones">
+
+  
+  <meta name="description" content="Historically setting up Japanese input on Linux has been a trial-and-error
+affair with much forum searching, dark config file incantations and other &hellip;">
+  <meta name="keywords" content="kubuntu japanese ibus">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://rurounijones.github.com/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="RJ's Notes" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:rurounijones.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+        <span class="blue_light">
+            RJ's Notes
+        </span>
+       
+           <span class="blue_dark">
+             for stuff I keep forgetting
+           </span>
+       
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Setting Up Japanese Input on Kubuntu 12.04</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-28T22:00:00+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Historically setting up Japanese input on Linux has been a trial-and-error
+affair with much forum searching, dark config file incantations and other
+black magic.</p>
+
+<p>Luckily with Kubuntu 12.04 getting setup with Japanese input has become a very
+simple process</p>
+
+<!--more-->
+
+
+<p>I am going to make a few assumptions before we get going. I am going to assume
+that:</p>
+
+<ol>
+<li>You have installed Kubuntu 12.04 or later</li>
+<li>You installed the English version.</li>
+<li>You have not yet tried to setup Japanese text input yet.</li>
+</ol>
+
+
+<p>The reason for 1. is simply that I have not tested this on any earlier versions.
+Feel free to give it a go and report back, but no guarantees.</p>
+
+<p>The reason for 2. is again, because I have not tested it with other languages.
+Again feel free to give it a go and report back, but no guarantees.</p>
+
+<p>The reason for 3. is because, historically, attempting ot get Japanese input
+working with one method would intefere with other attempts using different
+methods. If you have already tried to setup Japanese input on your install then
+by all means try the below method, but if it doesn&#8217;t work I am afraid that I
+cannot help you. In this case the best (albeit annoying) option is to reinstall.</p>
+
+<p>Right, with these caveats out of the way lets proceed.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install ibus-mozc gnome-icon-theme</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Run this command from the konsole. It will install the ibus-mozc software,
+this has worked for me without issues. I used to use some different software but
+this seems to be the way to go for 12.04 and up.</p>
+
+<p>gnome-icon-theme is required by ibus-mozc (yes, even on KDE) but due to a
+missing dependency it is not installed so we need to specify it here.</p>
+
+<p>After running the above command there is a good chance that you will need to
+restart, if prompted then please do so.</p>
+
+<p>After rebooting go go to your system-settings and choose the locale option
+(It is at the top under the &#8220;Common Appearance and Behavior&#8221; section).</p>
+
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-system-settings.png"></p>
+
+<p>In the left-hand list select &#8220;System Languages&#8221; and then in the right hand
+window choose the &#8220;Set System Language&#8221; option.</p>
+
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-locale.png"></p>
+
+<p>In my case I choose &#8220;English (United Kingdom)&#8221; (Rule Britannia!) and then in
+the bottom right of the window set the &#8220;Keyboard input method&#8221; to &#8220;ibus&#8221;</p>
+
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-set-system-language.png"></p>
+
+<p>Clicking apply will require you to enter your root password.</p>
+
+<p>Now we need to start ibus. One option is to reboot but the quicker way is to
+bring up the app launcher by pressing ALT+F2 then typing in &#8220;ibus&#8221;. Doing so
+will bring up the &#8220;IBus Input Method Framework&#8221; option, please click this.</p>
+
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-launcher-ibus.png"></p>
+
+<p>Clicking the above will result in a little keyboard icon coming into life in
+your taskbar bottom right of the screen.</p>
+
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-taskbar-ibus.png"></p>
+
+<p>Right click on this icon and select &#8220;Preferences&#8221;. On the window that appears
+select the &#8220;Input Method&#8221; tab.</p>
+
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences.png"></p>
+
+<p>Check the &#8220;Customize active input methods&#8221; checkbox. Click the &#8220;Select an input
+method&#8221;, click the little arrow next to the greyed out &#8220;Japanese&#8221; text then
+click on the very orange icon with the &#8220;Mozc&#8221; text. Once that is done click
+&#8220;Add&#8221;.</p>
+
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences-japanese-selected.png"></p>
+
+<p>The orange icon with &#8220;Japanese - Mozc&#8221; should appear in the input method
+list. At this point you can close the window.</p>
+
+<p><img class="center" src="/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences-japanese-added.png"></p>
+
+<p>You should now be able to input Japanese! Open a text editor like Kate or a
+browser. Select an area where you can enter text then use CTRL+Space, the
+keyboard icon bottom right should switch to the orange icon and you can enter
+Japanese. よし！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">RurouniJones</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-28T22:00:00+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/kubuntu/'>kubuntu</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rurounijones.github.com/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/" data-via="rurounijones" data-counturl="http://rurounijones.github.com/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/">Setting up Japanese input on Kubuntu 12.04</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/rurounijones">@rurounijones</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'rurounijones',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("rurounijones", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/rurounijones" class="twitter-follow-button" data-show-count="false">Follow @rurounijones</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - RurouniJones -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(100573807); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100573807ns.gif" /></p></noscript>
+
+</body>
+</html>
