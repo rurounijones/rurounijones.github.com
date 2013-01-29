@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: general | RJ's Notes]]></title>
+  <link href="http://rurounijones.github.com/blog/categories/general/atom.xml" rel="self"/>
+  <link href="http://rurounijones.github.com/"/>
+  <updated>2013-01-29T23:26:34+09:00</updated>
+  <id>http://rurounijones.github.com/</id>
+  <author>
+    <name><![CDATA[RurouniJones]]></name>
+    <email><![CDATA[jeff@jones.be]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to ask for help on IRC]]></title>
+    <link href="http://rurounijones.github.com/blog/2009/03/17/how-to-ask-for-help-on-irc/"/>
+    <updated>2009-03-17T01:24:00+09:00</updated>
+    <id>http://rurounijones.github.com/blog/2009/03/17/how-to-ask-for-help-on-irc</id>
+    <content type="html"><![CDATA[<p>Greetings. If you have arrived at this page via your own volition and intent
+then be aware that this is an abridged, slightly more modern, IRC specific
+version of Eric S. Raymond's "<a href="http://www.catb.org/~esr/faqs/smart-questions.html">How to ask questions the smart way</a>"
+which is excellent, but lengthy, reading.</p>
+
+<p>If, on the other hand, you have been directed to this page by someone else and
+quickly want to find out what this is about, Read on.</p>
+
+<!--more-->
+
+
+<h2>How to ask for help properly</h2>
+
+<p>In short:</p>
+
+<ul>
+<li>Don't ask to ask</li>
+<li>Give the helpers some details</li>
+<li>Ask suitable questions</li>
+<li>Be polite</li>
+<li>Wait</li>
+</ul>
+
+
+<p>For the purposes of this article I will introduce "Terry" and "Gonad"
+(Of "<a href="http://www.escapistmagazine.com/videos/view/zero-punctuation/130-Alone-in-the-Dark">Zero punctuation</a>" fame).
+Terry shall be our long suffering helper in the "Spiffy" project's IRC channel
+and Gonad shall be the person asking for help (badly).</p>
+
+<h3>1 - Don't ask to ask</h3>
+
+<p>This one drives people up the wall and many channels have special bots that will
+print out an entire spiel about not asking to ask, so let's get it out of the
+way first.</p>
+
+<p><code>
+[16:00] * Gonad has joined #spiffy-help
+[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+[16:00] &lt;Gonad&gt; Is it ok to ask a question about Spiffy?
+[16:01] * Terry sobs quietly in the corner
+</code></p>
+
+<p>Let us look at the obvious first. The entire channel is dedicated towards
+helping people with Spiffy, this is usually hinted at in the channel name and
+outright does in the topic. Do you think they have a personal grudge against
+you that is going to stop them answering? (they might possibly later, but right
+now it is a blank slate) <strong>of course they can help you</strong>. Just ask the question
+straight out.</p>
+
+<p>What Gonad should have done was:</p>
+
+<p><code>
+[16:00] * Gonad has joined #spiffy-help
+[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+[16:00] &lt;Gonad&gt; Hi all, I am having an issue with ....
+</code>
+Which leads us nicely onto the next point</p>
+
+<h3>2 - Give the helpers some details.</h3>
+
+<p>Let us follow on from the previous point and continue Gonad's sentence.</p>
+
+<p>```
+[16:00] * Gonad has joined #spiffy-help
+[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+[16:00] <Gonad> Hi all, I am getting an error page with Spiffy, what is going</p>
+
+<pre><code>            wrong?
+</code></pre>
+
+<p>[16:03] <Terry> Wait a moment, I just need to psychically connect with your</p>
+
+<pre><code>            brain so I can figure out what you are talking about. This may
+            cause loss of control over your bodily functions.
+</code></pre>
+
+<p>```</p>
+
+<p>Moral of the story, "Helpers are not psychic". When you post a problem we need
+something to go on. Preferably some or all of the following:</p>
+
+<ul>
+<li>The error page (Or output thereof).</li>
+<li>A list of steps taken which generated this error page and what you are
+expecting it to do instead of the error.</li>
+<li>The version of the software you are running along with any plugins you might
+have installed. If you think it is pertinent then the OS version and Database
+if used.</li>
+</ul>
+
+
+<p>A note about including error pages or output. Because these things are
+traditionally huge, pasting them directly into the channel will make you as
+well liked as a clown at a funeral. Instead use a "paste" website like
+"<a href="http://pastie.org">Pastie</a>", "<a href="http://pastebin.com/">Pastebin</a>" or
+"<a href="http://gist.github.com/">Gist</a>" and then paste the URL into the channel.
+These sites also offer syntax highlighting which is very useful.</p>
+
+<p>If the problem is complicated, or the steps very detailed, then consider posting
+a summary in IRC and more detail in your linked paste.</p>
+
+<p>So once more let's look at what Gonad should have done.</p>
+
+<p>```
+[16:00] * Gonad has joined #spiffy-help
+[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+[16:00] <Gonad> Hi all, I am getting an error page with a new Spiffy 1.5</p>
+
+<pre><code>            installation when I try and create a second admin user. 
+            Steps and Details here: http://pastie.org/417957
+</code></pre>
+
+<p>[16:02] <Terry> Gasp, what a well formatted cry for help, I rush, RUSH to your</p>
+
+<pre><code>            aid.
+</code></pre>
+
+<p>```</p>
+
+<p>And they all lived happily ever after.</p>
+
+<h3>3 - Ask suitable questions.</h3>
+
+<p>I hang around in some programming channels and every now and then we get a question illustrated by
+the following:</p>
+
+<p>```
+[16:00] * Gonad has joined #programming
+[16:00] * Topic is "Welcome to the New Hotness #programming channel"
+[16:02] <Gonad> Hi guys, how do I build a search engine / forum / fission reactor</p>
+
+<pre><code>            cooling loop fluid dynamics modelling application.
+</code></pre>
+
+<p>[16:07] <Terry> By simply asking that question you have betrayed your inherent</p>
+
+<pre><code>            cluelessness and I shall now ignore you until the heat death 
+            of the universe.
+</code></pre>
+
+<p>```</p>
+
+<p>Let us take a real-world equivalent. Your town has a local club of burly men,
+covered in engine oil, who like messing around with car engines: tuning, fixing
+and the like and they meet every night. Now imagine a someone walks into
+their workshop and asks "Hey guys, I want to design and build an engine, can you
+quickly tell me how to do that? I have my notepad and everything"</p>
+
+<p>Be thankful that at least online you have a certain amount of anonymity and
+are not vulnerable to immediate physical retribution.</p>
+
+<p>We are a help channel, this means we usually answer technical questions.
+We sometimes answer non-technical questions but don't ask anything that will
+require an entire business/technical specification or 4 year education course
+to answer</p>
+
+<p>Further reading on this subject can be read at the
+"<a href="http://www.slash7.com/pages/vampires">Help Vampire</a>" site (Which is very funny
+and better illustrated that this site). Make sure you don't end up as one.</p>
+
+<h3>4 - Be polite</h3>
+
+<p>Common sense dictates that when you put yourself in a position where you are
+relying on the kindness of strangers if behoves you to be polite to those
+strangers.</p>
+
+<p>Remember how much you paid for the support contract on the software? Exactly.
+99.99% of the helpers are not being paid, they are volunteers and generally nice
+people doing this because they like the warm fuzzy feeling they get from helping.
+Acting like a prat really discourages them from continuing this noble endeavour.</p>
+
+<p>Examples of bad behaviour:</p>
+
+<ul>
+<li>Being arrogant.</li>
+<li>Discarding/ignoring answers because they aren't quick fixes or require
+using your brain a bit</li>
+<li>Not thinking for yourself and expecting to be spoon fed. (Not Googling your
+problem before asking is a prime example).</li>
+</ul>
+
+
+<h3>5 - Wait</h3>
+
+<p>This is the internet, land of many timezones. Therefore questions might not be
+answered immediately. Let us look at Gonad again.</p>
+
+<p>```
+[16:00] * Gonad has joined #spiffy-help
+[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+[16:00] <Gonad> Hi guys, What is the configuration option for spiffy to enable</p>
+
+<pre><code>            emails?
+</code></pre>
+
+<p>[16:01] <Gonad> Anyone?
+[16:04] <Gonad> Hello?
+[16:09] <Gonad> Fine, don't talk to me
+[16:10] * Gonad has left #spiffy-help
+[16:11] <Terry> Hello guys, back from inventing a cure for cancer, anyone need</p>
+
+<pre><code>            help?
+</code></pre>
+
+<p>```</p>
+
+<p>Sometimes answers can take hours/days in a relatively quiet channel, state your
+question and wait. Most people will type your nick when replying so make sure
+your IRC client is set to alert you when your nick is typed.</p>
+
+<h2>Conclusion</h2>
+
+<p>If you have read this far and actually read everything then congratulations.
+You should now know enough to not be a prat and get ignored whenever you ask a
+question in IRC. However this is only the first step; I still recommend reading
+Eric S. Raymond's
+"<a href="http://www.catb.org/~esr/faqs/smart-questions.html">How to ask questions the smart way</a>"
+for a more thorough explanation of everything... go on, don't be adequate, go
+and be clued up.</p>
+
+<h3>Real Life Examples.</h3>
+
+<p>Fun competition time. Can you sees what rules are being broken with the
+following real life examples? (Names changed to protect the... innocent.)</p>
+
+<p>```</p>
+
+<h1>passenger on irc.freenode.net</h1>
+
+<p>[21:58] <Gonad> what is wrong with this shit ?
+[21:58] <Gonad> *** Exception Errno::EPIPE in Passenger RequestHandler (Broken pipe)
+```</p>
+
+<p>```</p>
+
+<h1>kubuntu-offtopic on irc.freenode.net</h1>
+
+<p>[03:55] > Gonad has joined this channel (***).
+[03:55] &lt;Gonad&gt; hello... pls how can i download and extract music from youtube?
+[03:58] > Gonad has left this channel.
+[04:02] <Terry> Hm. An ask-and-run
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

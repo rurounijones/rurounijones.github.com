@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | RJ's Notes]]></title>
+  <link href="http://rurounijones.github.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://rurounijones.github.com/"/>
+  <updated>2013-01-29T23:26:34+09:00</updated>
+  <id>http://rurounijones.github.com/</id>
+  <author>
+    <name><![CDATA[RurouniJones]]></name>
+    <email><![CDATA[jeff@jones.be]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Textile filtering with RedCloth]]></title>
+    <link href="http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth/"/>
+    <updated>2009-10-24T18:00:00+09:00</updated>
+    <id>http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth</id>
+    <content type="html"><![CDATA[<p>I wanted to use RedCloth to let users of my rails app make textile formatted
+posts but I wanted to restrict the input they were allowed to use. How to do
+this? I thought it would be simple.</p>
+
+<p><strong>Warning: This article was imported from an old site and is therefore itself
+rather old. It may not still be accurate for current versions of RedCloth.</strong></p>
+
+<!--more-->
+
+
+<p>Textile has a +filter_html+ option which I thought would do the trick but that
+only filters what HTML RedCloth allows users to enter. It doesn’t filter the
+HTML created by Redcloth itself when a user uses textile tags.</p>
+
+<p>So how to filter the textile tags?</p>
+
+<p>First, assuming you are using Rails 2.3 or later create the following file.
+For other frameworks please use the recommended method for adding start-up
+code to that framework.</p>
+
+<p><code>
+config/initializers/redcloth_filter.rb
+</code></p>
+
+<p>This file will be run during the rails initialization and will contain the code
+we want to override (monkey-patch). Now paste the following code into the file.</p>
+
+<p>``` ruby config/initializers/redcloth_filter.rb
+module RedCloth::Formatters::HTML
+  include RedCloth::Formatters::Base</p>
+
+<p>  ALLOWED_TAGS = {</p>
+
+<pre><code>  'a' =&gt; ['href', 'title'],
+  'br' =&gt; [],
+  'i' =&gt; nil,
+  'u' =&gt; nil,
+  'b' =&gt; nil,
+  'pre' =&gt; nil,
+  'kbd' =&gt; nil,
+  'code' =&gt; ['lang'],
+  'cite' =&gt; nil,
+  'strong' =&gt; nil,
+  'em' =&gt; nil,
+  'ins' =&gt; nil,
+  'sup' =&gt; nil,
+  'sub' =&gt; nil,
+  'del' =&gt; nil,
+  'table' =&gt; nil,
+  'tr' =&gt; nil,
+  'td' =&gt; ['colspan', 'rowspan'],
+  'th' =&gt; nil,
+  'ol' =&gt; ['start'],
+  'ul' =&gt; nil,
+  'li' =&gt; nil,
+  'p' =&gt; nil,
+  'h3' =&gt; nil,
+  'h4' =&gt; nil,
+  'h5' =&gt; nil,
+  'h6' =&gt; nil,
+  'blockquote' =&gt; ['cite'],
+</code></pre>
+
+<p>  }</p>
+
+<p>  def after_transform(text)</p>
+
+<pre><code>text.chomp!
+clean_html(text, ALLOWED_TAGS)
+</code></pre>
+
+<p>  end  <br/>
+end
+```</p>
+
+<p>ALLOWED_TAGS is a hash of tags that you want to allow. You can take the
+<a href="http://redcloth.rubyforge.org/classes/RedCloth/Formatters/HTML.html">BASIC_TAGS</a>
+to use as a base and strip tags you don’t want to allow from the hash and add
+other ones if you want to.</p>
+
+<p>So we have defined the tags that we want to allow. Now we need to actually do
+some stripping. This is where the after_transform method comes in. This is
+called by RedCloth as standard after initial modification. So what we can do is
+override the method and tell RedCloth to clean_html again with the HTML string
+it has just created. To give you a list of steps.</p>
+
+<ul>
+<li>RedCloth is configured with +filter_html+ enabled</li>
+<li>User enters string (Textile and HTML)</li>
+<li>RedCloth strips HTML tags from the string according to the BASIC_TAGS using
+clean_html method</li>
+<li>RedCloth converts the textile tags in the string to HTML</li>
+</ul>
+
+
+<p>At this point the HTML’ised string is usually returned; however we do some
+overriding so that:</p>
+
+<ul>
+<li>RedCloth strips HTML tags from the above generated HTML string according to
+our ALLOWED_TAGS using the clean_html method</li>
+<li>RedCloth returns the twice filtered HTML string.</li>
+</ul>
+
+
+<p>Thinking about it you don’t even need +filter_html+ since it will all be
+filtered the second time around explicitly by our code. However I feel a little
+more secure by stripping all the user generated HTML cruft first using
++filter_html+ before stripping our textile generated HTML ourselves.</p>
+
+<p>Enjoy</p>
+]]></content>
+  </entry>
+  
+</feed>

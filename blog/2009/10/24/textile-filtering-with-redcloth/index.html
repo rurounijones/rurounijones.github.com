@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Textile filtering with RedCloth - RJ's Notes</title>
+  <meta name="author" content="RurouniJones">
+
+  
+  <meta name="description" content="How to monkey-patch RedCloth to allow you to filter allowed HTML. Written from a Ruby on Rails perspective but can also be used in other frameworks">
+  <meta name="keywords" content="textile redcloth filter filtering">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="RJ's Notes" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:rurounijones.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+        <span class="blue_light">
+            RJ's Notes
+        </span>
+       
+           <span class="blue_dark">
+             for stuff I keep forgetting
+           </span>
+       
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Textile Filtering With RedCloth</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-24T18:00:00+09:00" pubdate data-updated="true">Oct 24<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I wanted to use RedCloth to let users of my rails app make textile formatted
+posts but I wanted to restrict the input they were allowed to use. How to do
+this? I thought it would be simple.</p>
+
+<p><strong>Warning: This article was imported from an old site and is therefore itself
+rather old. It may not still be accurate for current versions of RedCloth.</strong></p>
+
+<!--more-->
+
+
+<p>Textile has a +filter_html+ option which I thought would do the trick but that
+only filters what HTML RedCloth allows users to enter. It doesn’t filter the
+HTML created by Redcloth itself when a user uses textile tags.</p>
+
+<p>So how to filter the textile tags?</p>
+
+<p>First, assuming you are using Rails 2.3 or later create the following file.
+For other frameworks please use the recommended method for adding start-up
+code to that framework.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config/initializers/redcloth_filter.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This file will be run during the rails initialization and will contain the code
+we want to override (monkey-patch). Now paste the following code into the file.</p>
+
+<figure class='code'><figcaption><span>config/initializers/redcloth_filter.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">RedCloth::Formatters::HTML</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">RedCloth</span><span class="o">::</span><span class="no">Formatters</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">ALLOWED_TAGS</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s1">&#39;a&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;br&#39;</span> <span class="o">=&gt;</span> <span class="o">[]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;i&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;u&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;b&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;pre&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;kbd&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;code&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;lang&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;cite&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;strong&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;em&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;ins&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;sup&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;sub&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;del&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;table&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;tr&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;td&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;colspan&#39;</span><span class="p">,</span> <span class="s1">&#39;rowspan&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;th&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;ol&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;start&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;ul&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;li&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;p&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;h3&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;h4&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;h5&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;h6&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;blockquote&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;cite&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">after_transform</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">text</span><span class="o">.</span><span class="n">chomp!</span>
+</span><span class='line'>    <span class="n">clean_html</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="no">ALLOWED_TAGS</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ALLOWED_TAGS is a hash of tags that you want to allow. You can take the
+<a href="http://redcloth.rubyforge.org/classes/RedCloth/Formatters/HTML.html">BASIC_TAGS</a>
+to use as a base and strip tags you don’t want to allow from the hash and add
+other ones if you want to.</p>
+
+<p>So we have defined the tags that we want to allow. Now we need to actually do
+some stripping. This is where the after_transform method comes in. This is
+called by RedCloth as standard after initial modification. So what we can do is
+override the method and tell RedCloth to clean_html again with the HTML string
+it has just created. To give you a list of steps.</p>
+
+<ul>
+<li>RedCloth is configured with +filter_html+ enabled</li>
+<li>User enters string (Textile and HTML)</li>
+<li>RedCloth strips HTML tags from the string according to the BASIC_TAGS using
+clean_html method</li>
+<li>RedCloth converts the textile tags in the string to HTML</li>
+</ul>
+
+
+<p>At this point the HTML’ised string is usually returned; however we do some
+overriding so that:</p>
+
+<ul>
+<li>RedCloth strips HTML tags from the above generated HTML string according to
+our ALLOWED_TAGS using the clean_html method</li>
+<li>RedCloth returns the twice filtered HTML string.</li>
+</ul>
+
+
+<p>Thinking about it you don’t even need +filter_html+ since it will all be
+filtered the second time around explicitly by our code. However I feel a little
+more secure by stripping all the user generated HTML cruft first using
++filter_html+ before stripping our textile generated HTML ourselves.</p>
+
+<p>Enjoy</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">RurouniJones</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-24T18:00:00+09:00" pubdate data-updated="true">Oct 24<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth/" data-via="rurounijones" data-counturl="http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/03/17/how-to-ask-for-help-on-irc/" title="Previous Post: How to ask for help on IRC">&laquo; How to ask for help on IRC</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/" title="Next Post: Setting up Japanese input on Kubuntu 12.04">Setting up Japanese input on Kubuntu 12.04 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/">Setting up Japanese input on Kubuntu 12.04</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2009/10/24/textile-filtering-with-redcloth/">Textile filtering with RedCloth</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2009/03/17/how-to-ask-for-help-on-irc/">How to ask for help on IRC</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/rurounijones">@rurounijones</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'rurounijones',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("rurounijones", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/rurounijones" class="twitter-follow-button" data-show-count="false">Follow @rurounijones</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - RurouniJones -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(100573807); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100573807ns.gif" /></p></noscript>
+
+</body>
+</html>

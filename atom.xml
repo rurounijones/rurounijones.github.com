@@ -4,7 +4,7 @@
   <title><![CDATA[RJ's Notes]]></title>
   <link href="http://rurounijones.github.com/atom.xml" rel="self"/>
   <link href="http://rurounijones.github.com/"/>
-  <updated>2013-01-28T22:33:12+09:00</updated>
+  <updated>2013-01-29T23:26:34+09:00</updated>
   <id>http://rurounijones.github.com/</id>
   <author>
     <name><![CDATA[RurouniJones]]></name>
@@ -115,6 +115,421 @@ list. At this point you can close the window.</p>
 browser. Select an area where you can enter text then use CTRL+Space, the
 keyboard icon bottom right should switch to the orange icon and you can enter
 Japanese. よし！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Textile filtering with RedCloth]]></title>
+    <link href="http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth/"/>
+    <updated>2009-10-24T18:00:00+09:00</updated>
+    <id>http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth</id>
+    <content type="html"><![CDATA[<p>I wanted to use RedCloth to let users of my rails app make textile formatted
+posts but I wanted to restrict the input they were allowed to use. How to do
+this? I thought it would be simple.</p>
+
+<p><strong>Warning: This article was imported from an old site and is therefore itself
+rather old. It may not still be accurate for current versions of RedCloth.</strong></p>
+
+<!--more-->
+
+
+<p>Textile has a +filter_html+ option which I thought would do the trick but that
+only filters what HTML RedCloth allows users to enter. It doesn’t filter the
+HTML created by Redcloth itself when a user uses textile tags.</p>
+
+<p>So how to filter the textile tags?</p>
+
+<p>First, assuming you are using Rails 2.3 or later create the following file.
+For other frameworks please use the recommended method for adding start-up
+code to that framework.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config/initializers/redcloth_filter.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This file will be run during the rails initialization and will contain the code
+we want to override (monkey-patch). Now paste the following code into the file.</p>
+
+<figure class='code'><figcaption><span>config/initializers/redcloth_filter.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">RedCloth::Formatters::HTML</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">RedCloth</span><span class="o">::</span><span class="no">Formatters</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">ALLOWED_TAGS</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>      <span class="s1">&#39;a&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;br&#39;</span> <span class="o">=&gt;</span> <span class="o">[]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;i&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;u&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;b&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;pre&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;kbd&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;code&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;lang&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;cite&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;strong&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;em&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;ins&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;sup&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;sub&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;del&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;table&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;tr&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;td&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;colspan&#39;</span><span class="p">,</span> <span class="s1">&#39;rowspan&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;th&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;ol&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;start&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;ul&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;li&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;p&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;h3&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;h4&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;h5&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;h6&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+</span><span class='line'>      <span class="s1">&#39;blockquote&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;cite&#39;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">after_transform</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">text</span><span class="o">.</span><span class="n">chomp!</span>
+</span><span class='line'>    <span class="n">clean_html</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="no">ALLOWED_TAGS</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ALLOWED_TAGS is a hash of tags that you want to allow. You can take the
+<a href="http://redcloth.rubyforge.org/classes/RedCloth/Formatters/HTML.html">BASIC_TAGS</a>
+to use as a base and strip tags you don’t want to allow from the hash and add
+other ones if you want to.</p>
+
+<p>So we have defined the tags that we want to allow. Now we need to actually do
+some stripping. This is where the after_transform method comes in. This is
+called by RedCloth as standard after initial modification. So what we can do is
+override the method and tell RedCloth to clean_html again with the HTML string
+it has just created. To give you a list of steps.</p>
+
+<ul>
+<li>RedCloth is configured with +filter_html+ enabled</li>
+<li>User enters string (Textile and HTML)</li>
+<li>RedCloth strips HTML tags from the string according to the BASIC_TAGS using
+clean_html method</li>
+<li>RedCloth converts the textile tags in the string to HTML</li>
+</ul>
+
+
+<p>At this point the HTML’ised string is usually returned; however we do some
+overriding so that:</p>
+
+<ul>
+<li>RedCloth strips HTML tags from the above generated HTML string according to
+our ALLOWED_TAGS using the clean_html method</li>
+<li>RedCloth returns the twice filtered HTML string.</li>
+</ul>
+
+
+<p>Thinking about it you don’t even need +filter_html+ since it will all be
+filtered the second time around explicitly by our code. However I feel a little
+more secure by stripping all the user generated HTML cruft first using
++filter_html+ before stripping our textile generated HTML ourselves.</p>
+
+<p>Enjoy</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to ask for help on IRC]]></title>
+    <link href="http://rurounijones.github.com/blog/2009/03/17/how-to-ask-for-help-on-irc/"/>
+    <updated>2009-03-17T01:24:00+09:00</updated>
+    <id>http://rurounijones.github.com/blog/2009/03/17/how-to-ask-for-help-on-irc</id>
+    <content type="html"><![CDATA[<p>Greetings. If you have arrived at this page via your own volition and intent
+then be aware that this is an abridged, slightly more modern, IRC specific
+version of Eric S. Raymond&#8217;s &#8221;<a href="http://www.catb.org/~esr/faqs/smart-questions.html">How to ask questions the smart way</a>&#8221;
+which is excellent, but lengthy, reading.</p>
+
+<p>If, on the other hand, you have been directed to this page by someone else and
+quickly want to find out what this is about, Read on.</p>
+
+<!--more-->
+
+
+<h2>How to ask for help properly</h2>
+
+<p>In short:</p>
+
+<ul>
+<li>Don&#8217;t ask to ask</li>
+<li>Give the helpers some details</li>
+<li>Ask suitable questions</li>
+<li>Be polite</li>
+<li>Wait</li>
+</ul>
+
+
+<p>For the purposes of this article I will introduce &#8220;Terry&#8221; and &#8220;Gonad&#8221;
+(Of &#8221;<a href="http://www.escapistmagazine.com/videos/view/zero-punctuation/130-Alone-in-the-Dark">Zero punctuation</a>&#8221; fame).
+Terry shall be our long suffering helper in the &#8220;Spiffy&#8221; project&#8217;s IRC channel
+and Gonad shall be the person asking for help (badly).</p>
+
+<h3>1 - Don&#8217;t ask to ask</h3>
+
+<p>This one drives people up the wall and many channels have special bots that will
+print out an entire spiel about not asking to ask, so let&#8217;s get it out of the
+way first.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
+</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+</span><span class='line'>[16:00] &lt;Gonad&gt; Is it ok to ask a question about Spiffy?
+</span><span class='line'>[16:01] * Terry sobs quietly in the corner</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let us look at the obvious first. The entire channel is dedicated towards
+helping people with Spiffy, this is usually hinted at in the channel name and
+outright does in the topic. Do you think they have a personal grudge against
+you that is going to stop them answering? (they might possibly later, but right
+now it is a blank slate) <strong>of course they can help you</strong>. Just ask the question
+straight out.</p>
+
+<p>What Gonad should have done was:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
+</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+</span><span class='line'>[16:00] &lt;Gonad&gt; Hi all, I am having an issue with ....</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Which leads us nicely onto the next point</p>
+
+<h3>2 - Give the helpers some details.</h3>
+
+<p>Let us follow on from the previous point and continue Gonad&#8217;s sentence.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
+</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+</span><span class='line'>[16:00] &lt;Gonad&gt; Hi all, I am getting an error page with Spiffy, what is going 
+</span><span class='line'>                wrong?
+</span><span class='line'>[16:03] &lt;Terry&gt; Wait a moment, I just need to psychically connect with your 
+</span><span class='line'>                brain so I can figure out what you are talking about. This may
+</span><span class='line'>                cause loss of control over your bodily functions.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Moral of the story, &#8220;Helpers are not psychic&#8221;. When you post a problem we need
+something to go on. Preferably some or all of the following:</p>
+
+<ul>
+<li>The error page (Or output thereof).</li>
+<li>A list of steps taken which generated this error page and what you are
+expecting it to do instead of the error.</li>
+<li>The version of the software you are running along with any plugins you might
+have installed. If you think it is pertinent then the OS version and Database
+if used.</li>
+</ul>
+
+
+<p>A note about including error pages or output. Because these things are
+traditionally huge, pasting them directly into the channel will make you as
+well liked as a clown at a funeral. Instead use a &#8220;paste&#8221; website like
+&#8221;<a href="http://pastie.org">Pastie</a>&#8221;, &#8221;<a href="http://pastebin.com/">Pastebin</a>&#8221; or
+&#8221;<a href="http://gist.github.com/">Gist</a>&#8221; and then paste the URL into the channel.
+These sites also offer syntax highlighting which is very useful.</p>
+
+<p>If the problem is complicated, or the steps very detailed, then consider posting
+a summary in IRC and more detail in your linked paste.</p>
+
+<p>So once more let&#8217;s look at what Gonad should have done.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
+</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+</span><span class='line'>[16:00] &lt;Gonad&gt; Hi all, I am getting an error page with a new Spiffy 1.5 
+</span><span class='line'>                installation when I try and create a second admin user. 
+</span><span class='line'>                Steps and Details here: http://pastie.org/417957
+</span><span class='line'>[16:02] &lt;Terry&gt; Gasp, what a well formatted cry for help, I rush, RUSH to your 
+</span><span class='line'>                aid.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And they all lived happily ever after.</p>
+
+<h3>3 - Ask suitable questions.</h3>
+
+<p>I hang around in some programming channels and every now and then we get a question illustrated by
+the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #programming
+</span><span class='line'>[16:00] * Topic is "Welcome to the New Hotness #programming channel"
+</span><span class='line'>[16:02] &lt;Gonad&gt; Hi guys, how do I build a search engine / forum / fission reactor 
+</span><span class='line'>                cooling loop fluid dynamics modelling application.
+</span><span class='line'>[16:07] &lt;Terry&gt; By simply asking that question you have betrayed your inherent 
+</span><span class='line'>                cluelessness and I shall now ignore you until the heat death 
+</span><span class='line'>                of the universe.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let us take a real-world equivalent. Your town has a local club of burly men,
+covered in engine oil, who like messing around with car engines: tuning, fixing
+and the like and they meet every night. Now imagine a someone walks into
+their workshop and asks &#8220;Hey guys, I want to design and build an engine, can you
+quickly tell me how to do that? I have my notepad and everything&#8221;</p>
+
+<p>Be thankful that at least online you have a certain amount of anonymity and
+are not vulnerable to immediate physical retribution.</p>
+
+<p>We are a help channel, this means we usually answer technical questions.
+We sometimes answer non-technical questions but don&#8217;t ask anything that will
+require an entire business/technical specification or 4 year education course
+to answer</p>
+
+<p>Further reading on this subject can be read at the
+&#8221;<a href="http://www.slash7.com/pages/vampires">Help Vampire</a>&#8221; site (Which is very funny
+and better illustrated that this site). Make sure you don&#8217;t end up as one.</p>
+
+<h3>4 - Be polite</h3>
+
+<p>Common sense dictates that when you put yourself in a position where you are
+relying on the kindness of strangers if behoves you to be polite to those
+strangers.</p>
+
+<p>Remember how much you paid for the support contract on the software? Exactly.
+99.99% of the helpers are not being paid, they are volunteers and generally nice
+people doing this because they like the warm fuzzy feeling they get from helping.
+Acting like a prat really discourages them from continuing this noble endeavour.</p>
+
+<p>Examples of bad behaviour:</p>
+
+<ul>
+<li>Being arrogant.</li>
+<li>Discarding/ignoring answers because they aren&#8217;t quick fixes or require
+using your brain a bit</li>
+<li>Not thinking for yourself and expecting to be spoon fed. (Not Googling your
+problem before asking is a prime example).</li>
+</ul>
+
+
+<h3>5 - Wait</h3>
+
+<p>This is the internet, land of many timezones. Therefore questions might not be
+answered immediately. Let us look at Gonad again.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
+</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
+</span><span class='line'>[16:00] &lt;Gonad&gt; Hi guys, What is the configuration option for spiffy to enable
+</span><span class='line'>                emails?
+</span><span class='line'>[16:01] &lt;Gonad&gt; Anyone?
+</span><span class='line'>[16:04] &lt;Gonad&gt; Hello?
+</span><span class='line'>[16:09] &lt;Gonad&gt; Fine, don't talk to me
+</span><span class='line'>[16:10] * Gonad has left #spiffy-help
+</span><span class='line'>[16:11] &lt;Terry&gt; Hello guys, back from inventing a cure for cancer, anyone need 
+</span><span class='line'>                help?</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Sometimes answers can take hours/days in a relatively quiet channel, state your
+question and wait. Most people will type your nick when replying so make sure
+your IRC client is set to alert you when your nick is typed.</p>
+
+<h2>Conclusion</h2>
+
+<p>If you have read this far and actually read everything then congratulations.
+You should now know enough to not be a prat and get ignored whenever you ask a
+question in IRC. However this is only the first step; I still recommend reading
+Eric S. Raymond&#8217;s
+&#8221;<a href="http://www.catb.org/~esr/faqs/smart-questions.html">How to ask questions the smart way</a>&#8221;
+for a more thorough explanation of everything&#8230; go on, don&#8217;t be adequate, go
+and be clued up.</p>
+
+<h3>Real Life Examples.</h3>
+
+<p>Fun competition time. Can you sees what rules are being broken with the
+following real life examples? (Names changed to protect the&#8230; innocent.)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#passenger on irc.freenode.net
+</span><span class='line'>[21:58] &lt;Gonad&gt; what is wrong with this shit ?
+</span><span class='line'>[21:58] &lt;Gonad&gt; *** Exception Errno::EPIPE in Passenger RequestHandler (Broken pipe)</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#kubuntu-offtopic on irc.freenode.net
+</span><span class='line'>[03:55] &gt; Gonad has joined this channel (***).
+</span><span class='line'>[03:55] &lt;Gonad&gt; hello... pls how can i download and extract music from youtube?
+</span><span class='line'>[03:58] &gt; Gonad has left this channel.
+</span><span class='line'>[04:02] &lt;Terry&gt; Hm. An ask-and-run</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
