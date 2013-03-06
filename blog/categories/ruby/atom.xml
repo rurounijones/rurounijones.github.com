@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | RJ's Notes]]></title>
   <link href="http://rurounijones.github.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://rurounijones.github.com/"/>
-  <updated>2013-03-07T00:21:33+09:00</updated>
+  <updated>2013-03-07T00:25:02+09:00</updated>
   <id>http://rurounijones.github.com/</id>
   <author>
     <name><![CDATA[RurouniJones]]></name>
@@ -127,7 +127,14 @@ feed. for example:</p>
 </ul>
 
 
-<p>You should find companies doing stuff that interest you and sign up to their blogs</p>
+<p>You should find companies doing stuff that interest you and sign up to their
+blogs</p>
+
+<h2><a href="http://rubular.com/">Rubular</a></h2>
+
+<p>This is a handy little site which lets you write and test regular expressions
+as you write them. It is my go-to site when I need to use regexes (which is not
+that common, hence why it is such a useful site)</p>
 
 <h2>Other things</h2>
 
