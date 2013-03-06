@@ -110,7 +110,14 @@ feed. for example:
 * [EngineYard](http://www.engineyard.com/blog)
 * [Thoughtbot](http://robots.thoughtbot.com/)
 
-You should find companies doing stuff that interest you and sign up to their blogs
+You should find companies doing stuff that interest you and sign up to their
+blogs
+
+## [Rubular](http://rubular.com/)
+
+This is a handy little site which lets you write and test regular expressions
+as you write them. It is my go-to site when I need to use regexes (which is not
+that common, hence why it is such a useful site)
 
 ## Other things
 
