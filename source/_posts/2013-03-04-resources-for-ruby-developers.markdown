@@ -70,7 +70,7 @@ developer about town the following Reddits may prove useful:
 Ruby5 is a podcast from the gents at Envy Labs which covers interesting ruby 
 related things. They are relatively short and to the point (About 5 minutes)
 
-To be honest, I do not lisen to the podcast that often but they list each tech
+To be honest, I do not listen to the podcast that often but they list each tech
 they talk about on the page for that episode which is what I usually have a look 
 at.
 
@@ -106,7 +106,7 @@ Unfortunately webpulp does not update very often but what the hey.
 As well as the above I have blogs by various ruby related companes on an RSS
 feed. for example:
 
-* [32Signals](http://37signals.com/svn)
+* [37Signals](http://37signals.com/svn)
 * [EngineYard](http://www.engineyard.com/blog)
 * [Thoughtbot](http://robots.thoughtbot.com/)
 
