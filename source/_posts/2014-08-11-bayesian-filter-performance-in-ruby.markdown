@@ -19,11 +19,12 @@ post is spam or not).
 
 They made some performance claims which seemeds exceedingly slow, but
 also made some statements that made me suspect their application design
-was not all that it could be so I thought I would see if ruby was the 
+was not all that it could be so I thought I would see if ruby was the
 guilty party.
 
-This blog post is probably most helpful to low to intermediate ruby
-developers.
+This post is not primarily about bayesian filtering but about
+performance testing; it is probably most helpful to low to intermediate
+ruby developers.
 
 <!--more-->
 
@@ -82,7 +83,7 @@ So, now we know the claims we need the goal.
 
 * Benchmark a ruby Bayesian filter.
 * Try and attain a filtering rate in the neighbourhood of 1000 posts
-  / second.
+  / second. Say +- 10%
 * Do the above with a training data-set of around 100,000 items.
 
 ## The Filter
@@ -129,7 +130,12 @@ in the same ballpark.
 * 19,089 ham emails
 * 32,989 spam emails
 
-For a grand-total of around 50,000 emails.
+For a grand-total of around 50,000 emails. Due to the way the filter
+is written I don't see there being much difference in speed between
+50,000 and 100,000 items in the training set.
+
+NOTE: If you are reading this and know of a bigger training set that
+is freely available I would love to hear about it.
 
 Wow, 750 odd words into this article and we haven't even gotten to the
 beginning of the code stuff yet.
@@ -165,7 +171,7 @@ spammers being tazered).
 
 All code samples from here-on-out will come from either Ankusa or DBMB.
 
-WARNING: This code is messy and not TDD'd and likely to make your 
+WARNING: DBMB code is messy and not TDD'd and likely to make your 
 "Beautiful Code" gland rupture.
 
 
@@ -181,9 +187,8 @@ the "spam" and "ham" sub-directories and training ankusa with them.
 
 We then save the data to a file called "corpus". Note that since we
 are doing an operation that uses file I/O we can speed things up by
-creating one thread for "spam" and one for "ham". The GIL stops true
-multi-threading but we can still get a performance speed-up in this
-case.
+creating one thread for "spam" and one for "ham". The GIL gets in the
+way a bit but still get a performance speed-up in this case.
 
 Since the original poster was talking about "Forum Threads" I decided
 to just parse the email body rather than everything including headers
@@ -225,9 +230,9 @@ removed a lot of unnecessary output from the commands.
 
 Test Machine:
 
-CPU: Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz
-OS: Ubuntu 14.04
-Ruby: 2.1.2
+* CPU:  Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz
+* OS:   Kubuntu 14.04
+* Ruby: 2.1.2
 
 ```
 $ rake benchmark:1000
@@ -277,7 +282,7 @@ $ stackprof /tmp/dbmb-20140811050715.dump --limit 5
 Here I have told stackprof to identify the methods which were taking up
 the most runtime and limit it to the longest 4 methods. And holy moly!
 
-From reading line 16 we can tell that the vast VAST VAST majority of
+From reading line 17 we can tell that the vast VAST VAST majority of
 the runtime is taken up with a single method! This is good and bad.
 Good, in that if we can optimise this then it will be a huge win, bad in
 that if we cannot, we are screwed. So let us look at the offending code.
@@ -397,3 +402,200 @@ stackprof again.
         57  (11.4%)          40   (8.0%)     Ankusa::TextHash#add_word
         24   (4.8%)          24   (4.8%)     Set#include?
 ```
+
+So the next longest action is actually a method on String which is checking
+if the string is numeric or not and it there is some rescue action going on
+in there which means it is taking up the top two spots. Now String is a
+ruby core class and it does not have a `numeric?` method by default so 
+this looks like something Ankusa has monkey-patched in.
+
+A quick look through the source-code and we see this is the case (in the
+appropriately named `extensions.rb`)
+
+``` ruby
+class String
+  def numeric?
+    true if Float(self) rescue false
+  end
+end
+```
+
+[The full code](https://github.com/bmuller/ankusa/blob/8b223a07a85847abb1ec76ec6746face3a388635/lib/ankusa/extensions.rb)
+
+So what is wrong with this method? Well, nothing is wrong with it per se,
+it is one of the standard ways to see if a String is numeric or not.
+
+The problem with it is that it is slow, it is even slower if the string
+is not numeric because then it raises an exception which has to be rescued
+(sloooooooooooow). This is one of the reasons you see people saying.
+"Don't use exceptions for flow-control!".
+
+The problem is that we cannot really change this because every other way
+of checking if a string is numeric or not has edge-cases where they fail.
+This is the only bullet-proof way of making sure if a String is numeric
+or not.
+
+But do we need bullet-proofness? Lets have a nose around and see if there
+is any other option.
+
+If we go up the call chain a bit we can see that each word is processesed
+in add_text:
+
+``` ruby
+def add_text(text)
+  if text.instance_of? Array
+    text.each { |t| add_text t }
+  else
+    # replace dashes with spaces, then get rid of non-word/non-space characters,
+    # then split by space to get words
+    words = TextHash.atomize text
+    words.each { |word| add_word(word) if TextHash.valid_word?(word) }
+  end
+  self
+end
+```
+
+To create a "word" it first atomises any text passed to it. The comment
+looks very interesting "Replace dashes with spaces"... well that would
+remove negative numbers for starters. Lets have a look at the `atomize`
+method.
+
+``` ruby
+def self.atomize(text)
+  text.downcase.to_ascii.tr('-', ' ').gsub(/[^\w\s]/," ").split
+end
+```
+
+Hmm, this looks interesting, this code basically strips all dashes and
+replaces anything that is not a word or whitespace character with a space.
+Lets assume our regexp knowledge is fuzzy and we are not sure what a
+"word" (\w) is, we can fire up IRB and do some testing:
+
+``` ruby
+$ irb
+2.1.2 :001 > # Include the monkey-patch required by atomise
+2.1.2 :002 >   class String
+2.1.2 :003?>     def to_ascii
+2.1.2 :004?>         encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "").force_encoding('UTF-8') rescue ""
+2.1.2 :005?>       end
+2.1.2 :006?>   end
+ => :to_ascii
+2.1.2 :007 >
+2.1.2 :008 >   def atomize(text)
+2.1.2 :009?>     text.downcase.to_ascii.tr('-', ' ').gsub(/[^\w\s]/," ").split
+2.1.2 :010?>   end
+ => :atomize
+2.1.2 :011 >
+2.1.2 :012 >   atomize("1234")
+ => ["1234"]
+2.1.2 :013 > atomize("-1234")
+ => ["1234"]
+2.1.2 :014 > atomize("-1234.56")
+ => ["1234", "56"]
+```
+
+Well, with some experimentation it looks like any kind of number will
+always be split into a bunch of integers. This means that we don't
+really need the edge-case surety of `Float(string)`. Lets see how much
+faster a simple regex is. 
+
+``` ruby
+class String
+  def numeric?
+    word.match(/[\d+]/)
+  end
+end
+```
+
+And the result:
+
+``` bash
+                 user     system      total        real
+1000         1.050000   0.000000   1.050000 (  1.052543)
+
+Jobs per second: 950
+```
+
+Great success! Another simple change, another massive speed-up.
+
+Eagle-eye mathematicians might notice that we DO have an edge-case
+that we are no longer covering in that numbers like 1.05e16 will
+end up as `["1","05e16"]`. However by the time we check if a String
+is numeric this number has already been mashed up and checking for
+`[\d.]+(?:e?\d+)` could result in us ignoring words that we would
+prefer to check. All in all I think it is safer to not ignore a
+string like "1e05".
+
+Others may cringe at having such a method as a monkey-patch on
+String but do not worry, in the real PR I also moved it out of there
+as evidenced [here](https://github.com/bmuller/ankusa/commit/2d3d916640937680b3653db781357707b669be3d)
+
+## Great Success
+
+We are now close enough to 1000 jobs per second that I am going to call time on this
+post. There are other optimisations we could probably do but we have already
+done the easy stuff as evidenced by stackprof once again.
+
+``` bash
+==================================
+  Mode: cpu(1000)
+  Samples: 210 (20.15% miss rate)
+  GC: 0 (0.00%)
+==================================
+     TOTAL    (pct)     SAMPLES    (pct)     FRAME
+        48  (22.9%)          44  (21.0%)     Ankusa::TextHash.atomize
+        27  (12.9%)          27  (12.9%)     Ankusa::TextHash.numeric_word?
+        45  (21.4%)          26  (12.4%)     Ankusa::TextHash#add_word
+        23  (11.0%)          23  (11.0%)     Set#include?
+        19   (9.0%)          19   (9.0%)     String#stem
+        14   (6.7%)          14   (6.7%)     Ankusa::MemoryStorage#get_word_counts
+        13   (6.2%)          13   (6.2%)     block (2 levels) in Ankusa::NaiveBayesClassifier#log_likelihoods
+        13   (6.2%)          13   (6.2%)     block in Ankusa::Classifier#get_word_probs
+        48  (22.9%)          10   (4.8%)     Ankusa::Classifier#get_word_probs
+         8   (3.8%)           5   (2.4%)     block in Ankusa::Classifier#get_word_probs
+         4   (1.9%)           4   (1.9%)     String#to_ascii
+         3   (1.4%)           3   (1.4%)     Ankusa::Classifier#vocab_sizes
+         3   (1.4%)           3   (1.4%)     Ankusa::MemoryStorage#get_total_word_count
+       210 (100.0%)           2   (1.0%)     Ankusa::NaiveBayesClassifier#classify
+         2   (1.0%)           1   (0.5%)     block in Ankusa::NaiveBayesClassifier#log_likelihoods
+         1   (0.5%)           1   (0.5%)     Ankusa::Classifier#doc_count_totals
+         1   (0.5%)           1   (0.5%)     Ankusa::MemoryStorage#get_doc_count
+         1   (0.5%)           1   (0.5%)     block in Ankusa::NaiveBayesClassifier#classify
+```
+
+As we can see from this (full) output there is no horrendously slow
+bottleneck that we can fix for a big win.
+
+(A cofession here: I got the "Need for Speed" bug at this point and did
+some more tweaking that got us to about 970-980 jobs per second, you
+can see the full list of changes [here](https://github.com/rurounijones/ankusa/commits/performance-increases)
+
+## Where Next?
+
+So we had a challenge and I think we met it, We didn't do much in the
+way of long-run tests and our setup might have differed from theirs but
+I think I showed that ruby can have respectable results. This means that
+Ruby is perfect, right?.
+
+Well no, while I do believe the original poster was wrong to blame
+ruby for his application's slowness there are a few issues here.
+
+First is that using ankusa in this manner is massively CPU bound we are
+stuck here using a single thread. This operation would benefit hugely from
+effective multi-threading but Ruby's GIL prevents us from doing so since we are
+not doing much in the way of I/O.
+
+JRuby to the rescue! I did actually try testing on JRuby. Ankusa
+actually uses a C Extension for the word-stemming and there is a JRuby
+drop-in equivalent but when I ran the tests on JRuby it was
+horrendously slow (Something like 40 times slower) and at that point
+I was not really up for trying to figure out why.
+
+There is always Rubinius, I have never used it to be honest, but it
+does sound ideal for this case, maybe I will write a part 2 (RBX Redux!).
+
+## I Learned Something Today
+
+What I hoped I demonstrated was that improving performance is not
+the black-magic beginners might think it is. There are tools that make
+it dead simple to do so I highly recommend you give it a go.
