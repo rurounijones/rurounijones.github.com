@@ -1,24 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[RJ's Notes]]></title>
-  <link href="http://rurounijones.github.com/atom.xml" rel="self"/>
-  <link href="http://rurounijones.github.com/"/>
-  <updated>2014-08-13T03:05:16+09:00</updated>
-  <id>http://rurounijones.github.com/</id>
-  <author>
-    <name><![CDATA[RurouniJones]]></name>
-    <email><![CDATA[jeff@jones.be]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Bayesian Filter Performance in Ruby - RJ's Notes</title>
+  <meta name="author" content="RurouniJones">
 
   
-  <entry>
-    <title type="html"><![CDATA[Bayesian Filter Performance in Ruby]]></title>
-    <link href="http://rurounijones.github.com/blog/2014/08/11/bayesian-filter-performance-in-ruby/"/>
-    <updated>2014-08-11T12:00:00+09:00</updated>
-    <id>http://rurounijones.github.com/blog/2014/08/11/bayesian-filter-performance-in-ruby</id>
-    <content type="html"><![CDATA[<p>A while ago I was in an online discussion regarding &ldquo;Correct Tools for
+  <meta name="description" content="A while ago I was in an online discussion regarding &ldquo;Correct Tools for
+the Jobs&rdquo; and how ruby was not a good language for developing say &hellip;">
+  <meta name="keywords" content="ruby performance stackprof bayesian">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://rurounijones.github.com/blog/2014/08/11/bayesian-filter-performance-in-ruby/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="RJ's Notes" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:rurounijones.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+        <span class="blue_light">
+            RJ's Notes
+        </span>
+       
+           <span class="blue_dark">
+             for stuff I keep forgetting
+           </span>
+       
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Bayesian Filter Performance in Ruby</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-11T12:00:00+09:00" pubdate data-updated="true">Aug 11<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>A while ago I was in an online discussion regarding &ldquo;Correct Tools for
 the Jobs&rdquo; and how ruby was not a good language for developing say, an
 operating system.</p>
 
@@ -767,682 +842,157 @@ does sound ideal for this case, maybe I will write a part 2 (RBX Redux!).</p>
 <p>What I hoped I demonstrated was that improving performance is not
 the black-magic beginners might think it is. There are tools that make
 it dead simple to do so I highly recommend you give it a go.</p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[Resources for Ruby Developers]]></title>
-    <link href="http://rurounijones.github.com/blog/2013/03/04/resources-for-ruby-developers/"/>
-    <updated>2013-03-04T12:40:00+09:00</updated>
-    <id>http://rurounijones.github.com/blog/2013/03/04/resources-for-ruby-developers</id>
-    <content type="html"><![CDATA[<p>As someone (Probably a really famous guy whose name I cannot remember) once said
-becoming a software developer means having to learn new things for the rest of
-your life.</p>
 
-<p>This is just as true for Ruby as for any other language so here are the
-resources I like to use to keep up to date.</p>
+<span class="byline author vcard">Posted by <span class="fn">RurouniJones</span></span>
 
-<p>These are besides things like API sites and the ruby on rails guides etc.</p>
-
-<!--more-->
+      
 
 
-<h2><a href="http://railscasts.com">Railscasts</a></h2>
-
-<p>Made by Ryan Biggs, Railscasts is a great site with webcasts exploring new and
-interesting things happening in the ruby world. As the name suggests it is more
-focused on Web Development and Ruby on Rails but it also explores technology
-that can be useful to other types of ruby developers.</p>
-
-<p>There are free and paid-for episodes available (for US$9 per month) and every
-episode has source code avilable on github. Most episodes also have full
-transcripts, including code, which can be read if you are not a video-watching
-type.</p>
-
-<h2><a href="http://confreaks.com">Confreaks</a></h2>
-
-<p>If you do not have money to travel the world attending conferences and your
-company does not stump up the cash then Confreaks is a gem of a site. They
-record presentations at a lot of major development conferences.</p>
-
-<p>Confreaks is very popular with ruby conferences so you can find a wealth of
-interesting talks there. (Most of the talks are about 40-60 minutes long
-which is perferct for filling up a lunch break while eating or watching on the
-daily commute)</p>
-
-<h2><a href="http://news.ycombinator.com">Hacker News</a></h2>
-
-<p>Hacker News is a (mostly) news aggregation site that has reasonable high
-standards of submissions and comments. Like all aggregation sites it has plenty
-of stories that do not interest me directly but there is a lot of good technical
-news / startup news there.</p>
-
-<p>Requires a bit more mental filtering but still worth it. Just be aware that it
-is quite start-up focused which can cause a bit of an echo chamber effect. A
-healthy dose of cynicism (realism?) is useful.</p>
-
-<h2><a href="http://reddit.com">Reddit</a></h2>
-
-<p>Ah, Reddit, the &ldquo;Front page of the internet&rdquo; and a hell of a good time-waster.
-Beware of this site in that regard.</p>
-
-<p>Reddit has various subforums related to specialised topics. For the Ruby
-developer about town the following Reddits may prove useful:</p>
-
-<ul>
-<li><a href="http://reddit.com/r/ruby">Ruby</a></li>
-<li><a href="http://reddit.com/r/rubyonrails">Ruby on Rails</a></li>
-<li><a href="http://reddit.com/r/webdev">Webdev</a></li>
-</ul>
 
 
-<h2><a href="http://ruby5.envylabs.com">Ruby5</a></h2>
-
-<p>Ruby5 is a podcast from the gents at Envy Labs which covers interesting ruby
-related things. They are relatively short and to the point (About 5 minutes)</p>
-
-<p>To be honest, I do not listen to the podcast that often but they list each tech
-they talk about on the page for that episode which is what I usually have a look
-at.</p>
-
-<h2><a href="http://rubyshow.com">RubyShow</a></h2>
-
-<p>In the same manner as Ruby5 above this podcast talks about interesting things
-going on in the ruby world. The podcasts from Rubyshow are a lot longer than
-ruby5.</p>
-
-<p>Again like Ruby5 I mainly use this site for the list of technologies they have
-in the transcript rather than listening to the podcast itself. (Aren&rsquo;t I an
-old fashioned duffer&hellip;)</p>
-
-<h2><a href="http://webpulp.tv">Webpulp</a></h2>
-
-<p>While I am mainly a ruby dev I am also resposible for other aspects such as
-server administration etc. (Not my main job but hey).</p>
-
-<p>Webpulp.tv is basically a series of interviews with employees of quite famous
-tech related companies.</p>
-
-<p>The interviews usually focus on the technology used by the company, challenges
-they have faced and how they got around them etc.</p>
-
-<p>It is exceedingly useful to see what others are using in their stacks and a good
-way to learn about new and interesting software / techniques that might be
-useful for you.</p>
-
-<p>Unfortunately webpulp does not update very often but what the hey.</p>
-
-<h2>Company blogs</h2>
-
-<p>As well as the above I have blogs by various ruby related companes on an RSS
-feed. for example:</p>
-
-<ul>
-<li><a href="http://37signals.com/svn">37Signals</a></li>
-<li><a href="http://www.engineyard.com/blog">EngineYard</a></li>
-<li><a href="http://robots.thoughtbot.com/">Thoughtbot</a></li>
-</ul>
 
 
-<p>You should find companies doing stuff that interest you and sign up to their
-blogs</p>
 
-<h2><a href="http://rubular.com/">Rubular</a></h2>
 
-<p>This is a handy little site which lets you write and test regular expressions
-as you write them. It is my go-to site when I need to use regexes (which is not
-that common, hence why it is such a useful site)</p>
-
-<h2>Other things</h2>
-
-<p>If you have read this far then I thank you for your attention and would like to
-use it to remind you of one thing.</p>
-
-<p>Everything above is optional. What you should be doing anyway is being signed up
-to the security mailing lists of all the major components in your stack.</p>
-
-<p>For example if you you Ruby on Rails with PostgreSQL and Redis datastores and a
-Varnish cache running on CentOS then you should be signed up to the security
-mailing lists of all of these.</p>
-
-<h2>A Final Warning / Bit of Encouragement</h2>
-
-<p>I have listed a reasonable number of resources above. This list is no-where near
-exhaustive and you should be building up your own list of go-to resources. As
-well as this you need to beware of something I call &ldquo;Learner&rsquo;s Paralysis&rdquo;.</p>
-
-<p>Following all of the above sites (plus ones you find yourself) can take up a
-significant chunk of your time if you let it.</p>
-
-<p>Do not let it take up so much that you end up reading / learning a lot more than
-doing. This is a problem I suffer from, I find learning about these things so
-interesting (at a superficial level) that I don&rsquo;t actually get round to <em>doing</em>
-anything. (Work on side-projects, think about that bootstrapped business
-I want to to start etc.)</p>
-
-<p>Get out there and put the stuff to use rather than just thinking &ldquo;Hey, I learned
-something&rdquo; and leaving it at that.</p>
-]]></content>
-  </entry>
   
-  <entry>
-    <title type="html"><![CDATA[Setting up Japanese input on Kubuntu 12.04]]></title>
-    <link href="http://rurounijones.github.com/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/"/>
-    <updated>2013-01-28T22:00:00+09:00</updated>
-    <id>http://rurounijones.github.com/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04</id>
-    <content type="html"><![CDATA[<p>Historically setting up Japanese input on Linux has been a trial-and-error
-affair with much forum searching, dark config file incantations and other
-black magic.</p>
-
-<p>Luckily with Kubuntu 12.04 getting setup with Japanese input has become a very
-simple process</p>
-
-<!--more-->
 
 
-<p>I am going to make a few assumptions before we get going. I am going to assume
-that:</p>
+<time datetime="2014-08-11T12:00:00+09:00" pubdate data-updated="true">Aug 11<sup>th</sup>, 2014</time>
+      
 
-<ol>
-<li>You have installed Kubuntu 12.04 or later</li>
-<li>You installed the English version.</li>
-<li>You have not yet tried to setup Japanese text input yet.</li>
-</ol>
-
-
-<p>The reason for 1. is simply that I have not tested this on any earlier versions.
-Feel free to give it a go and report back, but no guarantees.</p>
-
-<p>The reason for 2. is again, because I have not tested it with other languages.
-Again feel free to give it a go and report back, but no guarantees.</p>
-
-<p>The reason for 3. is because, historically, attempting ot get Japanese input
-working with one method would intefere with other attempts using different
-methods. If you have already tried to setup Japanese input on your install then
-by all means try the below method, but if it doesn&rsquo;t work I am afraid that I
-cannot help you. In this case the best (albeit annoying) option is to reinstall.</p>
-
-<p>Right, with these caveats out of the way lets proceed.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install ibus-mozc gnome-icon-theme</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Run this command from the konsole. It will install the ibus-mozc software,
-this has worked for me without issues. I used to use some different software but
-this seems to be the way to go for 12.04 and up.</p>
-
-<p>gnome-icon-theme is required by ibus-mozc (yes, even on KDE) but due to a
-missing dependency it is not installed so we need to specify it here.</p>
-
-<p>After running the above command there is a good chance that you will need to
-restart, if prompted then please do so.</p>
-
-<p>After rebooting go go to your system-settings and choose the locale option
-(It is at the top under the &ldquo;Common Appearance and Behavior&rdquo; section).</p>
-
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-system-settings.png"></p>
-
-<p>In the left-hand list select &ldquo;System Languages&rdquo; and then in the right hand
-window choose the &ldquo;Set System Language&rdquo; option.</p>
-
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-locale.png"></p>
-
-<p>In my case I choose &ldquo;English (United Kingdom)&rdquo; (Rule Britannia!) and then in
-the bottom right of the window set the &ldquo;Keyboard input method&rdquo; to &ldquo;ibus&rdquo;</p>
-
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-set-system-language.png"></p>
-
-<p>Clicking apply will require you to enter your root password.</p>
-
-<p>Now we need to start ibus. One option is to reboot but the quicker way is to
-bring up the app launcher by pressing ALT+F2 then typing in &ldquo;ibus&rdquo;. Doing so
-will bring up the &ldquo;IBus Input Method Framework&rdquo; option, please click this.</p>
-
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-launcher-ibus.png"></p>
-
-<p>Clicking the above will result in a little keyboard icon coming into life in
-your taskbar bottom right of the screen.</p>
-
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-taskbar-ibus.png"></p>
-
-<p>Right click on this icon and select &ldquo;Preferences&rdquo;. On the window that appears
-select the &ldquo;Input Method&rdquo; tab.</p>
-
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences.png"></p>
-
-<p>Check the &ldquo;Customize active input methods&rdquo; checkbox. Click the &ldquo;Select an input
-method&rdquo;, click the little arrow next to the greyed out &ldquo;Japanese&rdquo; text then
-click on the very orange icon with the &ldquo;Mozc&rdquo; text. Once that is done click
-&ldquo;Add&rdquo;.</p>
-
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences-japanese-selected.png"></p>
-
-<p>The orange icon with &ldquo;Japanese - Mozc&rdquo; should appear in the input method
-list. At this point you can close the window.</p>
-
-<p><img class="center" src="http://rurounijones.github.com/images/2013-01-28-setting-up-japanese-input-on-kubuntu-12-dot-04/kubuntu-ibus-preferences-japanese-added.png"></p>
-
-<p>You should now be able to input Japanese! Open a text editor like Kate or a
-browser. Select an area where you can enter text then use CTRL+Space, the
-keyboard icon bottom right should switch to the orange icon and you can enter
-Japanese. よし！</p>
-]]></content>
-  </entry>
+<span class="categories">
   
-  <entry>
-    <title type="html"><![CDATA[Textile filtering with RedCloth]]></title>
-    <link href="http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth/"/>
-    <updated>2009-10-24T18:00:00+09:00</updated>
-    <id>http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth</id>
-    <content type="html"><![CDATA[<p>I wanted to use RedCloth to let users of my rails app make textile formatted
-posts but I wanted to restrict the input they were allowed to use. How to do
-this? I thought it would be simple.</p>
-
-<p><strong>Warning: This article was imported from an old site and is therefore itself
-rather old. It may not still be accurate for current versions of RedCloth.</strong></p>
-
-<!--more-->
-
-
-<p>Textile has a +filter_html+ option which I thought would do the trick but that
-only filters what HTML RedCloth allows users to enter. It doesn’t filter the
-HTML created by Redcloth itself when a user uses textile tags.</p>
-
-<p>So how to filter the textile tags?</p>
-
-<p>First, assuming you are using Rails 2.3 or later create the following file.
-For other frameworks please use the recommended method for adding start-up
-code to that framework.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>config/initializers/redcloth_filter.rb</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This file will be run during the rails initialization and will contain the code
-we want to override (monkey-patch). Now paste the following code into the file.</p>
-
-<figure class='code'><figcaption><span>config/initializers/redcloth_filter.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">RedCloth::Formatters::HTML</span>
-</span><span class='line'>  <span class="kp">include</span> <span class="no">RedCloth</span><span class="o">::</span><span class="no">Formatters</span><span class="o">::</span><span class="no">Base</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="no">ALLOWED_TAGS</span> <span class="o">=</span> <span class="p">{</span>
-</span><span class='line'>      <span class="s1">&#39;a&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="o">]</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;br&#39;</span> <span class="o">=&gt;</span> <span class="o">[]</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;i&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;u&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;b&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;pre&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;kbd&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;code&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;lang&#39;</span><span class="o">]</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;cite&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;strong&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;em&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;ins&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;sup&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;sub&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;del&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;table&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;tr&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;td&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;colspan&#39;</span><span class="p">,</span> <span class="s1">&#39;rowspan&#39;</span><span class="o">]</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;th&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;ol&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;start&#39;</span><span class="o">]</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;ul&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;li&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;p&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;h3&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;h4&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;h5&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;h6&#39;</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
-</span><span class='line'>      <span class="s1">&#39;blockquote&#39;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;cite&#39;</span><span class="o">]</span><span class="p">,</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">after_transform</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">text</span><span class="o">.</span><span class="n">chomp!</span>
-</span><span class='line'>    <span class="n">clean_html</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="no">ALLOWED_TAGS</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ALLOWED_TAGS is a hash of tags that you want to allow. You can take the
-<a href="http://redcloth.rubyforge.org/classes/RedCloth/Formatters/HTML.html">BASIC_TAGS</a>
-to use as a base and strip tags you don’t want to allow from the hash and add
-other ones if you want to.</p>
-
-<p>So we have defined the tags that we want to allow. Now we need to actually do
-some stripping. This is where the after_transform method comes in. This is
-called by RedCloth as standard after initial modification. So what we can do is
-override the method and tell RedCloth to clean_html again with the HTML string
-it has just created. To give you a list of steps.</p>
-
-<ul>
-<li>RedCloth is configured with +filter_html+ enabled</li>
-<li>User enters string (Textile and HTML)</li>
-<li>RedCloth strips HTML tags from the string according to the BASIC_TAGS using
-clean_html method</li>
-<li>RedCloth converts the textile tags in the string to HTML</li>
-</ul>
-
-
-<p>At this point the HTML’ised string is usually returned; however we do some
-overriding so that:</p>
-
-<ul>
-<li>RedCloth strips HTML tags from the above generated HTML string according to
-our ALLOWED_TAGS using the clean_html method</li>
-<li>RedCloth returns the twice filtered HTML string.</li>
-</ul>
-
-
-<p>Thinking about it you don’t even need +filter_html+ since it will all be
-filtered the second time around explicitly by our code. However I feel a little
-more secure by stripping all the user generated HTML cruft first using
-+filter_html+ before stripping our textile generated HTML ourselves.</p>
-
-<p>Enjoy</p>
-]]></content>
-  </entry>
+    <a class='category' href='/blog/categories/ruby/'>ruby</a>
   
-  <entry>
-    <title type="html"><![CDATA[How to ask for help on IRC]]></title>
-    <link href="http://rurounijones.github.com/blog/2009/03/17/how-to-ask-for-help-on-irc/"/>
-    <updated>2009-03-17T01:24:00+09:00</updated>
-    <id>http://rurounijones.github.com/blog/2009/03/17/how-to-ask-for-help-on-irc</id>
-    <content type="html"><![CDATA[<p>Greetings. If you have arrived at this page via your own volition and intent
-then be aware that this is an abridged, slightly more modern, IRC specific
-version of Eric S. Raymond&rsquo;s &ldquo;<a href="http://www.catb.org/~esr/faqs/smart-questions.html">How to ask questions the smart way</a>&rdquo;
-which is excellent, but lengthy, reading.</p>
-
-<p>If, on the other hand, you have been directed to this page by someone else and
-quickly want to find out what this is about, Read on.</p>
-
-<!--more-->
+</span>
 
 
-<h2>How to ask for help properly</h2>
-
-<p>In short:</p>
-
-<ul>
-<li>Don&rsquo;t ask to ask</li>
-<li>Give the helpers some details</li>
-<li>Ask suitable questions</li>
-<li>Be polite</li>
-<li>Wait</li>
-</ul>
-
-
-<p>For the purposes of this article I will introduce &ldquo;Terry&rdquo; and &ldquo;Gonad&rdquo;
-(Of &ldquo;<a href="http://www.escapistmagazine.com/videos/view/zero-punctuation/130-Alone-in-the-Dark">Zero punctuation</a>&rdquo; fame).
-Terry shall be our long suffering helper in the &ldquo;Spiffy&rdquo; project&rsquo;s IRC channel
-and Gonad shall be the person asking for help (badly).</p>
-
-<h3>1 - Don&rsquo;t ask to ask</h3>
-
-<p>This one drives people up the wall and many channels have special bots that will
-print out an entire spiel about not asking to ask, so let&rsquo;s get it out of the
-way first.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
-</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
-</span><span class='line'>[16:00] &lt;Gonad&gt; Is it ok to ask a question about Spiffy?
-</span><span class='line'>[16:01] * Terry sobs quietly in the corner</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Let us look at the obvious first. The entire channel is dedicated towards
-helping people with Spiffy, this is usually hinted at in the channel name and
-outright does in the topic. Do you think they have a personal grudge against
-you that is going to stop them answering? (they might possibly later, but right
-now it is a blank slate) <strong>of course they can help you</strong>. Just ask the question
-straight out.</p>
-
-<p>What Gonad should have done was:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
-</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
-</span><span class='line'>[16:00] &lt;Gonad&gt; Hi all, I am having an issue with ....</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Which leads us nicely onto the next point</p>
-
-<h3>2 - Give the helpers some details.</h3>
-
-<p>Let us follow on from the previous point and continue Gonad&rsquo;s sentence.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
-</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
-</span><span class='line'>[16:00] &lt;Gonad&gt; Hi all, I am getting an error page with Spiffy, what is going 
-</span><span class='line'>                wrong?
-</span><span class='line'>[16:03] &lt;Terry&gt; Wait a moment, I just need to psychically connect with your 
-</span><span class='line'>                brain so I can figure out what you are talking about. This may
-</span><span class='line'>                cause loss of control over your bodily functions.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Moral of the story, &ldquo;Helpers are not psychic&rdquo;. When you post a problem we need
-something to go on. Preferably some or all of the following:</p>
-
-<ul>
-<li>The error page (Or output thereof).</li>
-<li>A list of steps taken which generated this error page and what you are
-expecting it to do instead of the error.</li>
-<li>The version of the software you are running along with any plugins you might
-have installed. If you think it is pertinent then the OS version and Database
-if used.</li>
-</ul>
-
-
-<p>A note about including error pages or output. Because these things are
-traditionally huge, pasting them directly into the channel will make you as
-well liked as a clown at a funeral. Instead use a &ldquo;paste&rdquo; website like
-&ldquo;<a href="http://pastie.org">Pastie</a>&rdquo;, &ldquo;<a href="http://pastebin.com/">Pastebin</a>&rdquo; or
-&ldquo;<a href="http://gist.github.com/">Gist</a>&rdquo; and then paste the URL into the channel.
-These sites also offer syntax highlighting which is very useful.</p>
-
-<p>If the problem is complicated, or the steps very detailed, then consider posting
-a summary in IRC and more detail in your linked paste.</p>
-
-<p>So once more let&rsquo;s look at what Gonad should have done.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
-</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
-</span><span class='line'>[16:00] &lt;Gonad&gt; Hi all, I am getting an error page with a new Spiffy 1.5 
-</span><span class='line'>                installation when I try and create a second admin user. 
-</span><span class='line'>                Steps and Details here: http://pastie.org/417957
-</span><span class='line'>[16:02] &lt;Terry&gt; Gasp, what a well formatted cry for help, I rush, RUSH to your 
-</span><span class='line'>                aid.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And they all lived happily ever after.</p>
-
-<h3>3 - Ask suitable questions.</h3>
-
-<p>I hang around in some programming channels and every now and then we get a question illustrated by
-the following:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #programming
-</span><span class='line'>[16:00] * Topic is "Welcome to the New Hotness #programming channel"
-</span><span class='line'>[16:02] &lt;Gonad&gt; Hi guys, how do I build a search engine / forum / fission reactor 
-</span><span class='line'>                cooling loop fluid dynamics modelling application.
-</span><span class='line'>[16:07] &lt;Terry&gt; By simply asking that question you have betrayed your inherent 
-</span><span class='line'>                cluelessness and I shall now ignore you until the heat death 
-</span><span class='line'>                of the universe.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Let us take a real-world equivalent. Your town has a local club of burly men,
-covered in engine oil, who like messing around with car engines: tuning, fixing
-and the like and they meet every night. Now imagine a someone walks into
-their workshop and asks &ldquo;Hey guys, I want to design and build an engine, can you
-quickly tell me how to do that? I have my notepad and everything&rdquo;</p>
-
-<p>Be thankful that at least online you have a certain amount of anonymity and
-are not vulnerable to immediate physical retribution.</p>
-
-<p>We are a help channel, this means we usually answer technical questions.
-We sometimes answer non-technical questions but don&rsquo;t ask anything that will
-require an entire business/technical specification or 4 year education course
-to answer</p>
-
-<p>Further reading on this subject can be read at the
-&ldquo;<a href="http://www.slash7.com/pages/vampires">Help Vampire</a>&rdquo; site (Which is very funny
-and better illustrated that this site). Make sure you don&rsquo;t end up as one.</p>
-
-<h3>4 - Be polite</h3>
-
-<p>Common sense dictates that when you put yourself in a position where you are
-relying on the kindness of strangers if behoves you to be polite to those
-strangers.</p>
-
-<p>Remember how much you paid for the support contract on the software? Exactly.
-99.99% of the helpers are not being paid, they are volunteers and generally nice
-people doing this because they like the warm fuzzy feeling they get from helping.
-Acting like a prat really discourages them from continuing this noble endeavour.</p>
-
-<p>Examples of bad behaviour:</p>
-
-<ul>
-<li>Being arrogant.</li>
-<li>Discarding/ignoring answers because they aren&rsquo;t quick fixes or require
-using your brain a bit</li>
-<li>Not thinking for yourself and expecting to be spoon fed. (Not Googling your
-problem before asking is a prime example).</li>
-</ul>
-
-
-<h3>5 - Wait</h3>
-
-<p>This is the internet, land of many timezones. Therefore questions might not be
-answered immediately. Let us look at Gonad again.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[16:00] * Gonad has joined #spiffy-help
-</span><span class='line'>[16:00] * Topic is "Welcome to the spiffy help channel. Latest version is 1.5"
-</span><span class='line'>[16:00] &lt;Gonad&gt; Hi guys, What is the configuration option for spiffy to enable
-</span><span class='line'>                emails?
-</span><span class='line'>[16:01] &lt;Gonad&gt; Anyone?
-</span><span class='line'>[16:04] &lt;Gonad&gt; Hello?
-</span><span class='line'>[16:09] &lt;Gonad&gt; Fine, don't talk to me
-</span><span class='line'>[16:10] * Gonad has left #spiffy-help
-</span><span class='line'>[16:11] &lt;Terry&gt; Hello guys, back from inventing a cure for cancer, anyone need 
-</span><span class='line'>                help?</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Sometimes answers can take hours/days in a relatively quiet channel, state your
-question and wait. Most people will type your nick when replying so make sure
-your IRC client is set to alert you when your nick is typed.</p>
-
-<h2>Conclusion</h2>
-
-<p>If you have read this far and actually read everything then congratulations.
-You should now know enough to not be a prat and get ignored whenever you ask a
-question in IRC. However this is only the first step; I still recommend reading
-Eric S. Raymond&rsquo;s
-&ldquo;<a href="http://www.catb.org/~esr/faqs/smart-questions.html">How to ask questions the smart way</a>&rdquo;
-for a more thorough explanation of everything&hellip; go on, don&rsquo;t be adequate, go
-and be clued up.</p>
-
-<h3>Real Life Examples.</h3>
-
-<p>Fun competition time. Can you sees what rules are being broken with the
-following real life examples? (Names changed to protect the&hellip; innocent.)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#passenger on irc.freenode.net
-</span><span class='line'>[21:58] &lt;Gonad&gt; what is wrong with this shit ?
-</span><span class='line'>[21:58] &lt;Gonad&gt; *** Exception Errno::EPIPE in Passenger RequestHandler (Broken pipe)</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#kubuntu-offtopic on irc.freenode.net
-</span><span class='line'>[03:55] &gt; Gonad has joined this channel (***).
-</span><span class='line'>[03:55] &lt;Gonad&gt; hello... pls how can i download and extract music from youtube?
-</span><span class='line'>[03:58] &gt; Gonad has left this channel.
-</span><span class='line'>[04:02] &lt;Terry&gt; Hm. An ask-and-run</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
+    </p>
+    
+      <div class="sharing">
   
-</feed>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://rurounijones.github.com/blog/2014/08/11/bayesian-filter-performance-in-ruby/" data-via="" data-counturl="http://rurounijones.github.com/blog/2014/08/11/bayesian-filter-performance-in-ruby/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/04/resources-for-ruby-developers/" title="Previous Post: Resources for Ruby Developers">&laquo; Resources for Ruby Developers</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/11/bayesian-filter-performance-in-ruby/">Bayesian Filter Performance in Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/04/resources-for-ruby-developers/">Resources for Ruby Developers</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/">Setting up Japanese input on Kubuntu 12.04</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2009/10/24/textile-filtering-with-redcloth/">Textile filtering with RedCloth</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2009/03/17/how-to-ask-for-help-on-irc/">How to ask for help on IRC</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/rurounijones">@rurounijones</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'rurounijones',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - RurouniJones -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(100573807); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100573807ns.gif" /></p></noscript>
+
+</body>
+</html>

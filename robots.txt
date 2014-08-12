@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://rurounijones.github.com/sitemap.xml 

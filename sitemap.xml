@@ -1,29 +1,51 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
-    <url>
-        <loc>http://rurounijones.github.com/blog/2009/03/17/how-to-ask-for-help-on-irc/</loc>
-        <lastmod>2013-03-07T00:20:26+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth/</loc>
-        <lastmod>2013-03-07T00:20:26+09:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://rurounijones.github.com/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/
-        </loc>
-        <lastmod>2013-03-07T00:20:26+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://rurounijones.github.com/blog/2013/03/04/resources-for-ruby-developers/</loc>
-        <lastmod>2013-03-07T00:24:13+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://rurounijones.github.com/</loc>
-        <lastmod>2013-03-07T00:24:13+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://rurounijones.github.com/blog/archives/</loc>
-        <lastmod>2013-03-07T00:24:13+09:00</lastmod>
-    </url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  
+  <url>
+    <loc>http://rurounijones.github.com/blog/2014/08/11/bayesian-filter-performance-in-ruby/</loc>
+    <lastmod>2014-08-11T12:00:00+09:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://rurounijones.github.com/blog/2013/03/04/resources-for-ruby-developers/</loc>
+    <lastmod>2013-03-04T12:40:00+09:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://rurounijones.github.com/blog/2013/01/28/setting-up-japanese-input-on-kubuntu-12-dot-04/</loc>
+    <lastmod>2013-01-28T22:00:00+09:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://rurounijones.github.com/blog/2009/10/24/textile-filtering-with-redcloth/</loc>
+    <lastmod>2009-10-24T18:00:00+09:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://rurounijones.github.com/blog/2009/03/17/how-to-ask-for-help-on-irc/</loc>
+    <lastmod>2009-03-17T01:24:00+09:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  
+  <url>
+    <loc>http://rurounijones.github.com/</loc>
+    <lastmod>2014-08-13T03:05:16+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rurounijones.github.com/blog/archives/</loc>
+    <lastmod>2014-08-13T03:05:16+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  
 </urlset>
